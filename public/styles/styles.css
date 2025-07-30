@@ -1,0 +1,17 @@
+/* ===== Imports ===== */
+@import url('./navbar.css');
+/* ===== Elements ===== */
+/* ===== Classes ===== */
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Ids ===== */
+#title {
+  text-align: center;
+}

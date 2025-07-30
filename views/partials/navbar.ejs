@@ -1,0 +1,17 @@
+<section id="navbar" class="flex">
+  <div id="left-nav">
+    <% if(user) { %>
+    <a href="/user/:id">Home</a>
+    <% } else { %>
+    <a href="/">Home</a>
+    <% } %>
+  </div>
+  <div id="right-nav">
+    <% if(user) { %>
+    <a href="/auth/sign-out">Logout</a>
+    <% } else { %>
+    <a href="/auth/sign-up">Sign-up</a>
+    <a href="/auth/sign-in">Login</a>
+    <% } %>
+  </div>
+</section>

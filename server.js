@@ -12,9 +12,12 @@ const MongoStore = require("connect-mongo");
 const isSignedIn = require('./middleware/is-signed-in.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
 
+// ===== Controllers =====
+const authController = require('./controllers/auth.js');
 
 // ===== Script =====
 dotenv.config();
+const app = express();
 const port = process.env.PORT ? process.env.PORT : '3000';
 
 mongoose.connect(process.env.MONGODB_URI);
@@ -43,10 +46,10 @@ app.get('/', (req, res) => {
   res.render('index.ejs', { user: req.session.user, });
 });
 
-// middleware
-app.use(passUserToView);
-app.use('/auth', authController);
-app.use(isSignedIn);
+
+app.use(passUserToView); // middleware
+app.use('/auth', authController); // route (controller)
+app.use(isSignedIn); // middleware
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
