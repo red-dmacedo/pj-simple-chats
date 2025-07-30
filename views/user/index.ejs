@@ -14,7 +14,6 @@
   <h1 class="title-heading"><%= user.displayName %>'s Conversations</h1>
   <div class="flex">
     <div id="conversations-container" style="background-color: beige;height: 70vh;width: 150px;">
-      <!-- select -->
       <% if(targetConversation) { %>
       <a href=""><%= targetConversation.name %></a>
       <% } %>
@@ -22,7 +21,7 @@
       <% for(conv of conversations) { %>
       <a href="/user/<%= user._id %>/conversation/<%= conv._id %>"><%= conv.name %></a>
       <% }} %>
-      <button type="button" onclick="location.href='/user/<%=user._id%>/conversation/new'">New Conversation</button>
+      <button type="button" onclick="location.href='/user/<%=user._id%>/conversations'">New Conversation</button>
     </div>
   </div>
 </body>

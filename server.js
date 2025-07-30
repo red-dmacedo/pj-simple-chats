@@ -53,7 +53,7 @@ app.use(passUserToView); // middleware
 app.use('/auth', authController); // route (controller)
 app.use(isSignedIn); // middleware
 app.use('/user', userController); // route (controller)
-app.use('/user/:id/conversation', conversationsController); // route (controller)
+app.use('/user/:id/conversations', conversationsController); // route (controller)
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
