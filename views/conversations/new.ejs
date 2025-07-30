@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <script defer src="/scripts/filter-select.js"></script>
+  <title>New Conversation</title>
+</head>
+
+<body>
+  <h1 id="title">Start a New Conversation</h1>
+  <%- include('../partials/navbar.ejs') %>
+  <div class="form-container">
+    <form action="/user/<%=user._id%>/conversations">'
+      <% if(allUsers) { %>
+      <div class="input-line">
+        <label for="searchUser">Filter:</label>
+        <input type="text" id="searchUser" value="">
+      </div>
+      <div class="flex" style="gap: 5px;">
+        <label for="userId">Selection:</label>
+        <select id="selectUser" name="userId">
+          <% for(usr of allUsers) { %>
+          <option value="<%= usr._id %>"><%= usr.displayName %></option>
+          <% } %>
+        </select>
+      </div>
+      <% } %>
+      <button type="submit">Start Conversation</button>
+    </form>
+  </div>
+</body>
+
+</html>

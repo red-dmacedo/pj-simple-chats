@@ -2,7 +2,13 @@
 .form-container form {
   width: 100%;
   gap: 10px;
+  display: flex;
+  flex-direction: column;
 }
+
+/* .form-container form select {
+  min-height: 300px;
+} */
 /* ===== Classes ===== */
 .form-container {
   display: flex;
