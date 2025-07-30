@@ -11,6 +11,16 @@
 <body>
   <h1 id="title">Simple Chats</h1>
   <%- include('./partials/navbar.ejs') %>
+  <h1>Welcome to Simple Chats!</h1>
+  <div class="flex" style="gap: 20px;">
+    <div class="flex-column" style="gap: 10px;">
+      <button type="button" onclick="location.href='/auth/sign-in'">Login</button>
+      <button type="button" onclick="location.href='/auth/sign-up'">Sign-up</button>
+    </div>
+    <p>
+      Site description goes here.
+    </p>
+  </div>
 </body>
 
 </html>

@@ -1,6 +1,11 @@
 /* ===== Imports ===== */
 @import url('./navbar.css');
+@import url('./forms.css');
 /* ===== Elements ===== */
+body {
+  display: flex;
+  flex-direction: column;
+}
 /* ===== Classes ===== */
 .flex {
   display: flex;
@@ -10,8 +15,9 @@
   display: flex;
   flex-direction: column;
 }
-
 /* ===== Ids ===== */
 #title {
+  display: flex;
+  align-self: center;
   text-align: center;
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <title>Sign-up</title>
+</head>
+
+<body>
+  <h1 id="title">Simple Chats</h1>
+  <%- include('../partials/navbar.ejs') %>
+  <h1 id="title">Sign-up</h1>
+  <div class="form-container">
+    <form action="/auth/sign-up" method="POST" class="flex-column">
+      <div class="input-line">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required />
+      </div>
+      <div class="input-line">
+        <label for="displayName">Display Name:</label>
+        <input type="text" name="displayName" id="displayName" required />
+      </div>
+      <div class="input-line">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required />
+      </div>
+      <div class="input-line">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required />
+      </div>
+      <div class="input-line">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" required />
+      </div>
+      <button type="submit">Sign up</button>
+    </form>
+  </div>
+</body>
+
+</html>

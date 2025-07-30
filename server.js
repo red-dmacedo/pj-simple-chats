@@ -14,6 +14,7 @@ const passUserToView = require('./middleware/pass-user-to-view.js');
 
 // ===== Controllers =====
 const authController = require('./controllers/auth.js');
+const userController = require('./controllers/users.js');
 
 // ===== Script =====
 dotenv.config();
@@ -50,6 +51,7 @@ app.get('/', (req, res) => {
 app.use(passUserToView); // middleware
 app.use('/auth', authController); // route (controller)
 app.use(isSignedIn); // middleware
+app.use('/user', userController); // route (controller)
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

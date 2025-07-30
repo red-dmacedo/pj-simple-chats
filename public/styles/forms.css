@@ -1,0 +1,19 @@
+/* ===== Elements ===== */
+.form-container form {
+  width: 100%;
+  gap: 10px;
+}
+/* ===== Classes ===== */
+.form-container {
+  display: flex;
+  width: 30vw;
+  max-width: 100%;
+  align-self: center;
+}
+
+.form-container .input-line {
+  width: max-content;
+  max-width: 100%;
+}
+
+/* ===== Ids ===== */
