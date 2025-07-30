@@ -1,9 +1,8 @@
 <section id="navbar" class="flex">
   <div id="left-nav">
-    <% if(user) { %>
-    <a href="/user/<%= user._id %>">Home</a>
-    <% } else { %>
     <a href="/">Home</a>
+    <% if(user) { %>
+    <a href="/user/<%= user._id %>"><%= user.displayName %></a>
     <% } %>
   </div>
   <div id="right-nav">

@@ -5,6 +5,7 @@
 body {
   display: flex;
   flex-direction: column;
+  background-color: rgba(0,0,0,0.2);
 }
 /* ===== Classes ===== */
 .flex {
@@ -15,9 +16,22 @@ body {
   display: flex;
   flex-direction: column;
 }
-/* ===== Ids ===== */
-#title {
+
+.title-page {
   display: flex;
   align-self: center;
   text-align: center;
+  justify-content: center;
+  width: 100%;
+  margin: 20px;
 }
+
+.title-heading {
+  display: flex;
+  align-self: center;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0px;
+}
+/* ===== Ids ===== */

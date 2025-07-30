@@ -5,7 +5,7 @@
 }
 
 #navbar a {
-  background-color: rgba(0, 0, 0, 60%);
+  background-color: rgba(255, 255, 255, 40%);
   color: white;
   text-decoration: none;
   min-width: 100px;
@@ -14,17 +14,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 5px;
+  /* margin-left: 5px;
+  margin-right: 5px; */
 }
 
 /* ===== Classes ===== */
 /* ===== Ids ===== */
 #navbar {
-  background-color: rgba(100, 32, 0, 0.5);
+  background-color: rgba(0, 0, 0, 1);
   justify-content: space-between;
   font-weight: bold;
-  min-height: 30px;
+  min-height: 50px;
 }
 
 #right-nav {
