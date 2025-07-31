@@ -1,0 +1,40 @@
+/* ===== Elements ===== */
+#composition-area form {
+  gap: 10px;
+}
+
+#composition-area form textarea {
+  min-width: 80vw;
+}
+
+#composition-area form button {
+  max-width: 200px;
+}
+
+/* ===== Classes ===== */
+.conversation-display {
+  background-color: beige;
+  height: 50vh;
+  min-width: 120px;
+  width: 10vw;
+  gap: 5px;
+  overflow-y: scroll;
+}
+
+.message-container {
+  background-color: rgba(255, 255, 255, 50%);
+  width: 80vw;
+  height: 50vh;
+  overflow-y: scroll;
+}
+
+.message-container p:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.message-start {
+  color: rgba(0, 0, 0, 40%);
+  text-align: center;
+}
+
+/* ===== Ids ===== */

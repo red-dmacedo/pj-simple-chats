@@ -1,12 +1,15 @@
 /* ===== Imports ===== */
 @import url('./navbar.css');
 @import url('./forms.css');
+@import url('./conversations.css');
+
 /* ===== Elements ===== */
 body {
   display: flex;
   flex-direction: column;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
+
 /* ===== Classes ===== */
 .flex {
   display: flex;
@@ -34,4 +37,17 @@ body {
   width: 100%;
   margin: 0px;
 }
+
+.gap5 {
+  gap: 5px;
+}
+
+.gap10 {
+  gap: 10px;
+}
+
+.gap20 {
+  gap: 20px;
+}
+
 /* ===== Ids ===== */
