@@ -1,10 +1,14 @@
 const express = require('express');
 const User = require('../models/user.js');
 const Conversation = require('../models/conversation.js');
+const helpers = require('../modules/helpers.js');
+
+// extract helper functions => import { helperFunc } from '../modules/helpers.js' is interfering with require statements;
+const getConversationName = helpers.getConversationName;
+const createSendConvObj = helpers.createSendConvObj;
 const router = express.Router();
 
-// router.get('/:id', async (req, res) => {});
-
+// ===== Routes =====
 router.get('/', async (req, res) => {
   // const user = await User.findById(req.session.user._id);
   const allUsers = await User.find({ _id: { $not: { $in: req.session.user._id } } }); // get all users EXCEPT current user
@@ -28,7 +32,8 @@ router.post('/', async (req, res) => {
       <a href="/user/${user._id}/conversations">Return</a>
     `);
   } else {
-    const newConversation = await Conversation.create({ name: targetUser.displayName, users: [user._id, targetUser._id], });
+    // const newConversation = await Conversation.create({ name: targetUser.displayName, users: [user._id, targetUser._id], });
+    const newConversation = await Conversation.create({ users: [user._id, targetUser._id], });
 
     user.conversations.push(newConversation._id); // add conversation to user's conversation list
     await user.save();
@@ -40,23 +45,18 @@ router.post('/', async (req, res) => {
   };
 });
 
-router.get('/:convId', async (req, res) => { // get conversation
+router.get('/:convId', async (req, res) => { // get target conversation
   const user = await User.findById(req.session.user._id);
-  // const targetConversation = user.conversations.find(el => el.toString() === req.params.id);
   const targetConversation = await Conversation.findById(req.params.convId);
-  const conversations = await Conversation.find({ _id: { $in: user.conversations } });
-  const sendConv = conversations.filter(conv => conv._id.toString() !== req.params.convId).map(conv => {return {name: conv.name, _id: conv._id}}); // remove target conversation and map to {name, _id}
 
-  if (!targetConversation) {
+  if (!targetConversation) { // exit if targetConversation was not found
     return res.send(`
       <h1>Conversation not found</h1>
       <a href="/user/${req.session.user._id}">Return</a>
     `);
   };
 
-  const sendObj = {};
-  sendObj.conversations = sendConv; // user.conversations.filter(el => el.toString() !== req.params.id);
-  sendObj.targetConversation = targetConversation;
+  const sendObj = await createSendConvObj(req, targetConversation);
 
   res.render('user/index.ejs', sendObj);
 });

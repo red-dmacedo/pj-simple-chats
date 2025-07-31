@@ -1,26 +1,18 @@
 const express = require('express');
 const User = require('../models/user');
 const Conversation = require('../models/conversation');
+const helpers = require('../modules/helpers.js');
+const { create } = require('connect-mongo');
 const router = express.Router();
 
-// router.get('/', (req,res) => {
-//   res.redirect(`/user/${req.session.user._id}`);
-// });
+// extract helper functions
+const getConversationName = helpers.getConversationName;
+const createSendConvObj = helpers.createSendConvObj;
 
-router.get('/:convId', async (req, res) => { // load user page for the first time
+router.get('/:id', async (req, res) => { // load user page for the first time
   const user = await User.findById(req.session.user._id);
-  const conversations = await Conversation.find({ _id: { $in: user.conversations } });
-  const sendObj = {};
-
-  if (conversations) {
-    const targetConversation = conversations[0];
-    sendObj.targetConversation = conversations.find(conv => conv._id === targetConversation);
-    sendObj.conversations = conversations.filter(conv => conv._id !== targetConversation);
-  } else {
-    console.log('conv0: null');
-    sendObj.targetConversation = null;
-    sendObj.conversations = null;
-  };
+  const targetConv = await Conversation.findOne({ _id: { $in: user.conversations } }); // later: user.conversations.map(conv => conv.refId)
+  const sendObj = await createSendConvObj(req, targetConv);
 
   res.render('user/index.ejs', sendObj);
 });

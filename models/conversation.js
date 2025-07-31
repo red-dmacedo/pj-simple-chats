@@ -6,8 +6,14 @@ const messageSchema = mongoose.Schema({
   content: refs.requiredString,
 });
 
+// Add later
+// const usersSchema = mongoose.Schema({
+//   refId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+//   chatName: String,
+// });
+
 const conversationSchema = mongoose.Schema({
-  name: refs.requiredString,
+  // name: refs.requiredString,
   users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', }],
   messages: [messageSchema],
 });
