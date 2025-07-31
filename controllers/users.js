@@ -6,7 +6,7 @@ const { create } = require('connect-mongo');
 const router = express.Router();
 
 // extract helper functions
-const getConversationName = helpers.getConversationName;
+// const getConversationName = helpers.getConversationName;
 const createSendConvObj = helpers.createSendConvObj;
 
 router.get('/:id', async (req, res) => { // load user page for the first time

@@ -4,7 +4,7 @@ const Conversation = require('../models/conversation.js');
 const helpers = require('../modules/helpers.js');
 
 // extract helper functions => import { helperFunc } from '../modules/helpers.js' is interfering with require statements;
-const getConversationName = helpers.getConversationName;
+// const getConversationName = helpers.getConversationName;
 const createSendConvObj = helpers.createSendConvObj;
 const router = express.Router();
 
