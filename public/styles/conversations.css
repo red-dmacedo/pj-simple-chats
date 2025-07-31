@@ -28,13 +28,33 @@
   overflow-y: scroll;
 }
 
-.message-container p:hover {
+.message:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.message-start {
-  color: rgba(0, 0, 0, 40%);
-  text-align: center;
+.message {
+  display: flex;
+  flex-direction: column;
+  /* box-sizing: border-box; */
+  margin: 10px;
 }
 
+.message p {
+  display: flex;
+  margin: 0px;
+}
+
+.message-content {
+  color: rgba(0, 0, 0, 100%);
+}
+
+.message-timestamp {
+  color: rgba(0, 0, 0, 40%);
+  font-size: 0.6rem;
+}
+
+.message-username {
+  color: rgb(200, 0, 0);
+  font-size: 0.8rem;
+}
 /* ===== Ids ===== */

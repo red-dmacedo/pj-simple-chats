@@ -8,7 +8,8 @@ async function getConversationName(req, targetConv) {
   return users.map(usr => usr.displayName).join(', '); // get displayNames of all involved users and join them to a single string
 };
 
-async function createSendConvObj(req, targetConv){
+async function createSendConvObj(req, targetConv) {
+  // return object: sendConvObj {targetConversation, targetUsers, conversations}
   const user = await User.findById(req.session.user._id);
   const userConversations = await Conversation.find({ _id: { $in: user.conversations } }); // later: user.conversations.map(conv => conv.refId)
   const sendConvObj = {};
@@ -16,6 +17,9 @@ async function createSendConvObj(req, targetConv){
   const targetConversation = targetConv || userConversations[0]; // allow targetConv to be null
   targetConversation.name = await getConversationName(req, targetConversation); // set name
   sendConvObj.targetConversation = targetConversation; // attach to object
+
+  const targetUsers = await User.find({ _id: { $in: targetConversation.users } });
+  sendConvObj.targetUsers = targetUsers.map(usr => { return { _id: usr._id, displayName: usr.displayName } });
 
   if (userConversations) {
     const sendConversations = userConversations

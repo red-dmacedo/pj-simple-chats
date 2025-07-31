@@ -2,7 +2,6 @@ const express = require('express');
 const User = require('../models/user');
 const Conversation = require('../models/conversation');
 const helpers = require('../modules/helpers.js');
-const { create } = require('connect-mongo');
 const router = express.Router();
 
 // extract helper functions

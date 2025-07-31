@@ -58,7 +58,20 @@ router.get('/:convId', async (req, res) => { // get target conversation
 
   const sendObj = await createSendConvObj(req, targetConversation);
 
-  res.render('user/index.ejs', sendObj);
+  // res.render('user/index.ejs', sendObj);
+  res.redirect(`/users/${user._id}`);
+});
+
+router.post('/:convId', async (req, res) => {
+  const user = await User.findById(req.session.user._id);
+  req.body.userId = user._id; // set userId
+
+  const convId = req.params.convId;
+  const conversation = await Conversation.findById(convId);
+  conversation.messages.push(req.body); // add new message to conversation
+  await conversation.save();
+
+  res.redirect(`/users/${user._id}/conversations/${convId}`);
 });
 
 module.exports = router;

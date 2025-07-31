@@ -24,18 +24,24 @@
       <button type="button" onclick="location.href='/user/<%=user._id%>/conversations'">New Conversation</button>
     </div>
     <div class="message-container">
-      <p class="message-start">Messages start here</p>
+      <div class="message">
+        <p class="message-timestamp">Messages did not exist before this</p>
+      </div>
       <% if(targetConversation) { %>
       <% for(msg of targetConversation.messages) { %>
       <% const msgWithBreak = msg.content.replace(/\n/, "<br>") %>
-      <p class="message"><%= msgWithBreak %></p>
-      <p class="timestamp">Created: <%= msg.createdAt %> | LastUpdated: <%= msg.updatedAt %></p>
+      <div class="message">
+        <% const username = targetUsers.find(usr => usr._id.toString() === msg.userId.toString()).displayName %>
+        <p class="message-username"><%= username %></p>
+        <p class="message-content"><%= msgWithBreak %></p>
+        <p class="message-timestamp">Created: <%= msg.createdAt %> | LastUpdated: <%= msg.updatedAt %></p>
+      </div>
       <% } %>
       <% } %>
     </div>
   </div>
   <div id="composition-area">
-    <form action="" method="POST" class="flex-column">
+    <form action="/user/<%= user._id %>/conversations/<%= targetConversation._id %>" method="POST" class="flex-column">
       <textarea name="content" id="message-box" placeholder="New Message"></textarea>
       <button type="submit">Send</button>
     </form>
