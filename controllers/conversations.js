@@ -9,13 +9,13 @@ const createSendConvObj = helpers.createSendConvObj;
 const router = express.Router();
 
 // ===== Routes =====
-router.get('/', async (req, res) => {
+router.get('/', async (req, res) => { // show 'start a conversation page'
   // const user = await User.findById(req.session.user._id);
   const allUsers = await User.find({ _id: { $not: { $in: req.session.user._id } } }); // get all users EXCEPT current user
   res.render('conversations/show.ejs', { allUsers: allUsers });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res) => { // create new conversation
   const user = await User.findById(req.session.user._id); // user making the request
   const targetUser = await User.findById(req.body.userId); // user being added to conversation
   const conversations = await Conversation.find({ _id: { $in: User.conversations } });
@@ -54,15 +54,16 @@ router.get('/:convId', async (req, res) => { // get target conversation
       <h1>Conversation not found</h1>
       <a href="/user/${req.session.user._id}">Return</a>
     `);
+  } else {
+
+    const sendObj = await createSendConvObj(req, targetConversation);
+
+    res.render('user/index.ejs', sendObj);
+    // res.redirect(`/users/${user._id}`);
   };
-
-  const sendObj = await createSendConvObj(req, targetConversation);
-
-  // res.render('user/index.ejs', sendObj);
-  res.redirect(`/users/${user._id}`);
 });
 
-router.post('/:convId', async (req, res) => {
+router.post('/:convId', async (req, res) => { // add new message
   const user = await User.findById(req.session.user._id);
   req.body.userId = user._id; // set userId
 
@@ -71,7 +72,7 @@ router.post('/:convId', async (req, res) => {
   conversation.messages.push(req.body); // add new message to conversation
   await conversation.save();
 
-  res.redirect(`/users/${user._id}/conversations/${convId}`);
+  res.redirect(`/users/${user._id}/conversations/${conversation._id}`);
 });
 
 module.exports = router;
