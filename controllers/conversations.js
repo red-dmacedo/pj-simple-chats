@@ -36,23 +36,26 @@ router.post('/', async (req, res) => {
     targetUser.conversations.push(newConversation._id); // add conversation to targetUser
     await targetUser.save();
 
-    res.redirect(`/user/${user._id}`);
+    res.redirect(`/user/${user._id}/conversations/${newConversation._id}`);
   };
 });
 
-router.get('/:id', async (req, res) => { // get conversation
+router.get('/:convId', async (req, res) => { // get conversation
   const user = await User.findById(req.session.user._id);
-  const targetConversation = user.conversations.find(el => el.toString() === req.params.id);
+  // const targetConversation = user.conversations.find(el => el.toString() === req.params.id);
+  const targetConversation = await Conversation.findById(req.params.convId);
+  const conversations = await Conversation.find({ _id: { $in: user.conversations } });
+  const sendConv = conversations.filter(conv => conv._id.toString() !== req.params.convId).map(conv => {return {name: conv.name, _id: conv._id}}); // remove target conversation and map to {name, _id}
 
   if (!targetConversation) {
     return res.send(`
       <h1>Conversation not found</h1>
-      <a href="/user/${req.session.user._id}/conversations">Return</a>
+      <a href="/user/${req.session.user._id}">Return</a>
     `);
   };
 
   const sendObj = {};
-  sendObj.conversations = user.conversations.filter(el => el.toString() !== req.params.id);
+  sendObj.conversations = sendConv; // user.conversations.filter(el => el.toString() !== req.params.id);
   sendObj.targetConversation = targetConversation;
 
   res.render('user/index.ejs', sendObj);

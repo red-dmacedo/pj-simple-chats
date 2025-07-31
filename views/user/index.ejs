@@ -13,7 +13,7 @@
   <%- include('../partials/navbar.ejs') %>
   <h1 class="title-heading"><%= user.displayName %>'s Conversations</h1>
   <div class="flex">
-    <div id="conversations-container" style="background-color: beige;height: 70vh;width: 150px;">
+    <div id="conversations-container" class="flex-column" style="background-color: beige;height: 50vh;min-width: 120px;width: 10vw;gap: 5px;overflow-y: scroll;">
       <% if(targetConversation) { %>
       <a href=""><%= targetConversation.name %></a>
       <% } %>
@@ -23,7 +23,22 @@
       <% }} %>
       <button type="button" onclick="location.href='/user/<%=user._id%>/conversations'">New Conversation</button>
     </div>
+    <div class="message-container" style="background-color: rgba(255,255,255,50%);width: 80vw;height: 50vh;">
+      <% if(targetConversation) { %>
+      <% for(msg of targetConversation.messages) { %>
+      <% const msgWithBreak = msg.content.replace(/\n/, "<br>") %>
+      <p class="message"><%= msgWithBreak %></p>
+      <p class="timestamp">Created: <%= msg.createdAt %> | LastUpdated: <%= msg.updatedAt %></p>
+      <% } %>
+      <% } %>
+    </div>
   </div>
+    <div id="composition-area">
+      <form action="" method="POST" class="flex-column" style="gap: 10px">
+        <textarea name="content" id="message-box" placeholder="New Message" style="min-width: 80vw;"></textarea>
+        <button type="submit" style="max-width: 200px;">Send</button>
+      </form>
+    </div>
 </body>
 
 </html>

@@ -1,10 +1,11 @@
 /* ===== Elements ===== */
-#navbar div {
+#navbar div {  /* 2 divs inside of the navbar */
   width: 50vw;
   display: flex;
+  align-items: center;
 }
 
-#navbar a {
+#navbar a { /* anchor tags within the navbar */
   background-color: rgba(255, 255, 255, 40%);
   color: white;
   text-decoration: none;
@@ -15,20 +16,17 @@
   align-items: center;
   justify-content: center;
   margin: 5px;
-  /* margin-left: 5px;
-  margin-right: 5px; */
 }
 
 /* ===== Classes ===== */
 /* ===== Ids ===== */
-#navbar {
+#navbar { /* whole navbar */
   background-color: rgba(0, 0, 0, 1);
   justify-content: space-between;
   font-weight: bold;
   min-height: 50px;
 }
 
-#right-nav {
-  display: flex;
+#right-nav { /* right div of the navbar */
   justify-content: flex-end;
 }
