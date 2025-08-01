@@ -96,3 +96,11 @@
   margin-left: 10px;
   gap: 5px;
 }
+
+.message button {
+  margin: 5px;
+  max-width: 200px;
+  width: 10vw;
+  min-width: 150px;
+  align-self: center;
+}
