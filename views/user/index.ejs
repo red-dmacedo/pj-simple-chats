@@ -33,13 +33,13 @@
       </div>
       <% if(targetConversation) { %>
       <% for(msg of targetConversation.messages) { %>
-      <form action="/user/<%user._id%>/conversations/<%targetConversation._id%>/<%msg._id%>?_method=DELETE" method="POST" class="message">
+      <% let formAction; if(msg.userId.toString() === user._id.toString()){ formAction = `/user/${user._id}/conversations/${targetConversation._id}/${msg._id}?_method=DELETE`} else { formAction = ""} %>
+      <form action="<%= formAction %>" method="POST" class="message">
         <% const msgWithBreak = msg.content.replace(/\n/g, "<br>") %>
         <% const username = targetUsers.find(usr => usr._id.toString() === msg.userId.toString()).displayName %>
         <p class="message-username"><%= username %></p>
         <p class="message-content"><%- msgWithBreak %></p>
         <p class="message-timestamp">Created: <%= msg.createdAt %> | LastUpdated: <%= msg.updatedAt %></p>
-        <!-- <p class="message-id" style="display: none !important"><#%= msg._id %></p> -->
       </form>
       <% } %>
       <% } %>

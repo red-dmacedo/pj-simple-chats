@@ -75,4 +75,12 @@ router.post('/:convId', async (req, res) => { // add new message
   res.redirect(`/user/${user._id}/conversations/${conversation._id}`);
 });
 
+router.delete('/:convId/:msgId', async (req, res) => {
+  await Conversation.findByIdAndUpdate(
+    req.params.convId,
+    { $pull: { messages: { _id: req.params.msgId } } }
+  );
+  res.redirect(`/user/${req.session.user._id}/conversations/${req.params.convId}`);
+});
+
 module.exports = router;
