@@ -50,4 +50,8 @@ body {
   gap: 20px;
 }
 
+.center-self {
+  display: flex;
+  align-self: center;
+}
 /* ===== Ids ===== */

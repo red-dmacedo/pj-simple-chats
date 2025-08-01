@@ -1,7 +1,7 @@
 const selectEl = document.querySelector('#selectUser');
 const inputEl = document.querySelector('#searchUser');
 
-inputEl.addEventListener("change", (evt) => {
+inputEl.addEventListener("input", (evt) => {
   const searchValue = evt.target.value;
   const searchPattern = new RegExp(searchValue, 'i');
   const optionEls = selectEl.querySelectorAll('option'); // get all options under selectEl

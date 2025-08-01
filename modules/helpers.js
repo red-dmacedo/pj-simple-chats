@@ -22,10 +22,13 @@ async function createSendConvObj(req, targetConv) {
   sendConvObj.targetUsers = targetUsers.map(usr => { return { _id: usr._id, displayName: usr.displayName } });
 
   if (userConversations) {
-    const sendConversations = userConversations
-      .filter(conv => conv._id.toString() !== targetConversation._id.toString()) // filter out targetConversation
-      .map(async conv => { return { name: await getConversationName(req, conv), _id: conv._id } }); // map to { name, _id }
-
+    const sendConvs = userConversations.filter((conv) => conv._id.toString() !== targetConversation._id.toString()) // filter out targetConversation
+    const sendConversations = await Promise.all(
+      sendConvs.map(async (conv) => {
+        const returnObj = { name: (await getConversationName(req, conv)), _id: conv._id };
+        return returnObj
+      })
+    ); // map to { name, _id }
     sendConvObj.conversations = sendConversations;
   } else {
     sendConvObj.conversations = null;

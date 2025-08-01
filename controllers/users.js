@@ -9,10 +9,7 @@ const router = express.Router();
 const createSendConvObj = helpers.createSendConvObj;
 
 router.get('/:id', async (req, res) => { // load user page for the first time
-  const user = await User.findById(req.session.user._id);
-  const targetConv = await Conversation.findOne({ _id: { $in: user.conversations } }); // later: user.conversations.map(conv => conv.refId)
-  const sendObj = await createSendConvObj(req, targetConv);
-
+  const sendObj = await createSendConvObj(req);
   res.render('user/index.ejs', sendObj);
 });
 

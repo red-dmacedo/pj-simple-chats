@@ -1,29 +1,47 @@
 /* ===== Elements ===== */
 #composition-area form {
   gap: 10px;
+  display: flex;
+  /* align-self: flex-end; */
+  /* justify-content: end; */
+  align-items: end;
+  /* justify-items: end; */
 }
 
 #composition-area form textarea {
-  min-width: 80vw;
+  min-width: 70vw;
+  max-width: 70vw;
 }
 
 #composition-area form button {
   max-width: 200px;
 }
 
+#conversations-names a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+}
+
+#conversations-names a:hover {
+  background-color: rgba(0,0,0,10%);
+}
+
 /* ===== Classes ===== */
 .conversation-display {
-  background-color: beige;
+  background-color: rgba(0,0,0,60%);
   height: 50vh;
   min-width: 120px;
   width: 10vw;
   gap: 5px;
   overflow-y: scroll;
+  color: white;
 }
 
 .message-container {
   background-color: rgba(255, 255, 255, 50%);
-  width: 80vw;
+  min-width: 70vw;
+  width: 70vw;
   height: 50vh;
   overflow-y: scroll;
 }
@@ -58,3 +76,23 @@
   font-size: 0.8rem;
 }
 /* ===== Ids ===== */
+#conversations-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  overflow-x: hidden;
+}
+
+#composition-spacer {
+  width: 10px;
+  height: 10px;
+}
+
+#conversations-names {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 10px;
+  gap: 5px;
+}

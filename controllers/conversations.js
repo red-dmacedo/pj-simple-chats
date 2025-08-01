@@ -72,7 +72,7 @@ router.post('/:convId', async (req, res) => { // add new message
   conversation.messages.push(req.body); // add new message to conversation
   await conversation.save();
 
-  res.redirect(`/users/${user._id}/conversations/${conversation._id}`);
+  res.redirect(`/user/${user._id}/conversations/${conversation._id}`);
 });
 
 module.exports = router;
