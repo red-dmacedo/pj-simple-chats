@@ -55,11 +55,8 @@ router.get('/:convId', async (req, res) => { // get target conversation
       <a href="/user/${req.session.user._id}">Return</a>
     `);
   } else {
-
     const sendObj = await createSendConvObj(req, targetConversation);
-
     res.render('user/index.ejs', sendObj);
-    // res.redirect(`/users/${user._id}`);
   };
 });
 
@@ -72,15 +69,30 @@ router.post('/:convId', async (req, res) => { // add new message
   conversation.messages.push(req.body); // add new message to conversation
   await conversation.save();
 
-  res.redirect(`/user/${user._id}/conversations/${conversation._id}`);
+  res.redirect(`/user/${user._id}/conversations/${convId}`);
 });
 
 router.delete('/:convId/:msgId', async (req, res) => {
+  const convId = req.params.convId;
+  const msgId = req.params.msgId;
   await Conversation.findByIdAndUpdate(
-    req.params.convId,
-    { $pull: { messages: { _id: req.params.msgId } } }
+    convId,
+    { $pull: { messages: { _id: msgId } } }
   );
-  res.redirect(`/user/${req.session.user._id}/conversations/${req.params.convId}`);
+  res.redirect(`/user/${req.session.user._id}/conversations/${convId}`);
+});
+
+router.put('/:convId/:msgId', async (req, res) => {
+  const convId = req.params.convId;
+  const msgId = req.params.msgId;
+  const content = req.body.content;
+  // console.log('body:', req.body);
+  await Conversation.findByIdAndUpdate(
+    convId,
+    { $set: { "messages.$[elem].content": content } },
+    { arrayFilters: [{ "elem._id": msgId }], new: true }
+  );
+  res.redirect(`/user/${req.session.user._id}/conversations/${convId}`);
 });
 
 module.exports = router;
