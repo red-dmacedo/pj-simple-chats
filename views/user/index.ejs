@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles/styles.css">
   <script defer src="/scripts/scroll-to-bottom.js"></script>
-  <script defer src="/scripts/delete-message.js"></script>
+  <script defer src="/scripts/message-buttons.js"></script>
   <title><%= user.displayName %></title>
 </head>
 
@@ -33,13 +33,14 @@
       </div>
       <% if(targetConversation) { %>
       <% for(msg of targetConversation.messages) { %>
-      <div class="message">
+      <form action="/user/<%user._id%>/conversations/<%targetConversation._id%>/<%msg._id%>?_method=DELETE" method="POST" class="message">
         <% const msgWithBreak = msg.content.replace(/\n/g, "<br>") %>
         <% const username = targetUsers.find(usr => usr._id.toString() === msg.userId.toString()).displayName %>
         <p class="message-username"><%= username %></p>
         <p class="message-content"><%- msgWithBreak %></p>
         <p class="message-timestamp">Created: <%= msg.createdAt %> | LastUpdated: <%= msg.updatedAt %></p>
-      </div>
+        <p class="message-id" style="display: none !important"><%= msg._id %></p>
+      </form>
       <% } %>
       <% } %>
     </div>
@@ -53,6 +54,7 @@
     </form>
   </div>
   <!-- </div> -->
+  <p id="displayName" hidden><%= user.displayName %></p>
 </body>
 
 </html>
