@@ -21,7 +21,7 @@
         <% if(targetConversation) { %>
         <form action="/user/<%= user._id %>/conversations/<%= targetConversation._id %>?_method=DELETE" method="POST" class="flex-column gap5">
           <a href="">> <%= targetConversation.name %></a>
-          <button type="submit">Delete</button>
+          <button type="submit" class="margin20">Delete</button>
         </form>
         <% } %>
         <% if(conversations) { %>

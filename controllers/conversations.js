@@ -9,7 +9,7 @@ const createSendConvObj = helpers.createSendConvObj;
 const router = express.Router();
 
 // ===== Routes =====
-router.get('/', async (req, res) => { // show 'start a conversation page'
+router.get('/', async (req, res) => { // show 'start a conversation' page
   // const user = await User.findById(req.session.user._id);
   const allUsers = await User.find({ _id: { $not: { $in: req.session.user._id } } }); // get all users EXCEPT current user
   res.render('conversations/show.ejs', { allUsers: allUsers });
@@ -18,21 +18,17 @@ router.get('/', async (req, res) => { // show 'start a conversation page'
 router.post('/', async (req, res) => { // create new conversation
   const user = await User.findById(req.session.user._id); // user making the request
   const targetUser = await User.findById(req.body.userId); // user being added to conversation
-  const conversations = await Conversation.find({ _id: { $in: User.conversations } });
+  // const conversations = await Conversation.find({ _id: { $in: User.conversations } });
 
-  // find a conversation where the user and targetUser are included
-  const convExists = conversations.find(conv => (conv.users.includes(user._id) && conv.users.includes(targetUser._id)) ? 1 : 0);
-  // for (conv of conversations) { // find a conversation where the user and targetUser are included
-  //   if (conv.users.includes(user._id) && conv.users.includes(targetUser._id)) { convExists = true; break; };
-  // };
+  // find a shared conversation between the user and targetUser 
+  const convA = user.conversations.filter(cId => targetUser.conversations.some(cId2 => cId.toString() === cId2.toString()));
 
-  if (convExists) { // show error if a conversation was found
+  if (convA.length) { // show error if a conversation was found
     return res.send(`
     <h1 class="title-heading">Error: You already have a conversation with ${targetUser.displayName}</h1>
       <a href="/user/${user._id}/conversations">Return</a>
     `);
   } else {
-    // const newConversation = await Conversation.create({ name: targetUser.displayName, users: [user._id, targetUser._id], });
     const newConversation = await Conversation.create({ users: [user._id, targetUser._id], });
 
     user.conversations.push(newConversation._id); // add conversation to user's conversation list
@@ -72,7 +68,7 @@ router.post('/:convId', async (req, res) => { // add new message
   res.redirect(`/user/${user._id}/conversations/${convId}`);
 });
 
-router.delete('/:convId', async (req, res) => {
+router.delete('/:convId', async (req, res) => { // delete a conversation
   const convId = req.params.convId;
   conversation = await Conversation.findById(convId);
   const userIds = conversation.users;
@@ -86,7 +82,7 @@ router.delete('/:convId', async (req, res) => {
   res.redirect(`/user/${req.session.user._id}`);
 });
 
-router.delete('/:convId/:msgId', async (req, res) => {
+router.delete('/:convId/:msgId', async (req, res) => { // delete a message
   const convId = req.params.convId;
   const msgId = req.params.msgId;
   await Conversation.findByIdAndUpdate(
@@ -96,11 +92,10 @@ router.delete('/:convId/:msgId', async (req, res) => {
   res.redirect(`/user/${req.session.user._id}/conversations/${convId}`);
 });
 
-router.put('/:convId/:msgId', async (req, res) => {
+router.put('/:convId/:msgId', async (req, res) => { // edit a message
   const convId = req.params.convId;
   const msgId = req.params.msgId;
   const content = req.body.content;
-  // console.log('body:', req.body);
   await Conversation.findByIdAndUpdate(
     convId,
     { $set: { "messages.$[elem].content": content } },
