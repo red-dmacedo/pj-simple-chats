@@ -72,6 +72,20 @@ router.post('/:convId', async (req, res) => { // add new message
   res.redirect(`/user/${user._id}/conversations/${convId}`);
 });
 
+router.delete('/:convId', async (req, res) => {
+  const convId = req.params.convId;
+  conversation = await Conversation.findById(convId);
+  const userIds = conversation.users;
+
+  await User.updateMany(
+    { _id: { $in: userIds } },
+    { $pull: { "conversations": conversation._id } },
+  );
+
+  await conversation.deleteOne();
+  res.redirect(`/user/${req.session.user._id}`);
+});
+
 router.delete('/:convId/:msgId', async (req, res) => {
   const convId = req.params.convId;
   const msgId = req.params.msgId;

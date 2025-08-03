@@ -17,8 +17,12 @@
   <div class="flex">
     <div id="conversations-container" class="flex-column conversation-display">
       <div id="conversations-names">
+        <p class="bold">Conversations</p>
         <% if(targetConversation) { %>
-        <a href="">> <%= targetConversation.name %></a>
+        <form action="/user/<%= user._id %>/conversations/<%= targetConversation._id %>?_method=DELETE" method="POST" class="flex-column gap5">
+          <a href="">> <%= targetConversation.name %></a>
+          <button type="submit">Delete</button>
+        </form>
         <% } %>
         <% if(conversations) { %>
         <% for(conv of conversations) { %>
