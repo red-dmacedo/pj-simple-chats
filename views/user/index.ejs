@@ -37,6 +37,7 @@
       <form action="<%= formAction %>" method="POST" class="message">
         <% const msgWithBreak = msg.content.replace(/\n/g, "<br>") %>
         <% const username = targetUsers.find(usr => usr._id.toString() === msg.userId.toString()).displayName %>
+        <p class="message-id" style="display: none !important;"><%= msg._id %></p>
         <p class="message-username"><%= username %></p>
         <p class="message-content"><%- msgWithBreak %></p>
         <p class="message-timestamp">Created: <%= msg.createdAt %> | LastUpdated: <%= msg.updatedAt %></p>
@@ -54,7 +55,10 @@
     </form>
   </div>
   <!-- </div> -->
-  <p id="displayName" hidden><%= user.displayName %></p>
+  <p id="displayName" class="hidden"><%= user.displayName %></p>
+  <p id="userId" class="hidden"><%= user._id %></p>
+  <p id="targetConvId" class="hidden"><%= targetConversation._id %></p>
+  <%- include('../partials/edit-message.ejs') %>
 </body>
 
 </html>

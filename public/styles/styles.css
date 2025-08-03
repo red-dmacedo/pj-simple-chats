@@ -2,6 +2,7 @@
 @import url('./navbar.css');
 @import url('./forms.css');
 @import url('./conversations.css');
+@import url('./edit-dialog.css');
 
 /* ===== Elements ===== */
 body {
@@ -53,5 +54,9 @@ body {
 .center-self {
   display: flex;
   align-self: center;
+}
+
+.hidden {
+  display: none !important;
 }
 /* ===== Ids ===== */
