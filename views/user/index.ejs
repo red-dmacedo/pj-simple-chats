@@ -52,16 +52,20 @@
   </div>
   <!-- <div class="flex"> -->
   <!-- <div id="composition-spacer"></div> -->
+  <% if (targetConversation) { %>
   <div id="composition-area">
     <form action="/user/<%= user._id %>/conversations/<%= targetConversation._id %>" method="POST" class="flex-column">
       <textarea name="content" id="message-box" placeholder="New Message"></textarea>
       <button type="submit" class="center-self">Send</button>
     </form>
   </div>
+  <% } %>
   <!-- </div> -->
   <p id="displayName" class="hidden"><%= user.displayName %></p>
   <p id="userId" class="hidden"><%= user._id %></p>
+  <% if (targetConversation) { %>
   <p id="targetConvId" class="hidden"><%= targetConversation._id %></p>
+  <% } %>
   <%- include('../partials/edit-message.ejs') %>
 </body>
 
